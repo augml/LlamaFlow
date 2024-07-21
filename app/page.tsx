@@ -20,7 +20,7 @@ import InputNode from "./Nodes/InputNode";
 import OutputNode from "./Nodes/OutputNode";
 import { Button } from "@/components/ui/button";
 
-const initialEdges = [];
+const initialEdges: any = [];
 
 const nodeTypes = {
   DocumentNode,
