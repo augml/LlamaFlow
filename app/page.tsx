@@ -40,7 +40,7 @@ const initialEdges: any = [
     source: "input-node",
     target: "rag-node",
     sourceHandle: null,
-    targetHandle: "document -handle",
+    targetHandle: "document-handle",
   },
   {
     id: "edge-rag-output",
@@ -224,7 +224,7 @@ function Flow() {
           </Button>
         </div>
         <p className="text-red-500">
-          Adding nodes are disabled to prevent attacks
+          Adding nodes are disabled to prevent attacks/additional costs
         </p>
       </div>
       <ReactFlowProvider>
