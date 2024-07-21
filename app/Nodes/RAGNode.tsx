@@ -165,7 +165,7 @@ function RAGNode({ data, isConnectable }: { data: any; isConnectable: any }) {
                   Chat with RAG Bot
                 </DialogTitle>
                 <DialogDescription>
-                  You're chatting with the bot created in the flow.
+                  You&apos;re chatting with the bot created in the flow.
                 </DialogDescription>
               </DialogHeader>
               <Textarea
