@@ -20,7 +20,36 @@ import InputNode from "./Nodes/InputNode";
 import OutputNode from "./Nodes/OutputNode";
 import { Button } from "@/components/ui/button";
 
-const initialEdges: any = [];
+const initialEdges: any = [
+  {
+    id: "edge-document-rag",
+    source: "document-node",
+    target: "rag-node",
+    sourceHandle: null,
+    targetHandle: "chatbot-handle",
+  },
+  {
+    id: "edge-url-document-rag",
+    source: "url-document-node",
+    target: "rag-node",
+    sourceHandle: null,
+    targetHandle: "chatbot-handle",
+  },
+  {
+    id: "edge-input-rag",
+    source: "input-node",
+    target: "rag-node",
+    sourceHandle: null,
+    targetHandle: "document -handle",
+  },
+  {
+    id: "edge-rag-output",
+    source: "rag-node",
+    target: "output-node",
+    sourceHandle: null,
+    targetHandle: null,
+  },
+];
 
 const nodeTypes = {
   DocumentNode,
@@ -38,7 +67,53 @@ function Flow() {
   const [URLs, setURLs] = useState("");
   const [input, setInput] = useState("");
   const [botResponse, setBotResponse] = useState("");
-  const initialNodes: any = [];
+  const initialNodes: any = [
+    {
+      id: "rag-node",
+      type: "RAGNode",
+      position: { x: 0, y: 0 },
+      data: {
+        value: input,
+        fileData,
+        urls: URLs,
+        setBotResponse: setBotResponse,
+      },
+    },
+    {
+      id: "document-node",
+      type: "DocumentNode",
+      position: { x: -400, y: -150 },
+      data: {
+        setFileData: (file) =>
+          setFileData((prevData) => (prevData ? [...prevData, file] : [file])),
+        fileData: null,
+      },
+    },
+    {
+      id: "url-document-node",
+      type: "UrlDocumentNode",
+      position: { x: -400, y: 0 },
+      data: {
+        setUrl: (URL) => setURLs(URL),
+      },
+    },
+    {
+      id: "input-node",
+      type: "InputNode",
+      position: { x: -400, y: 150 },
+      data: {
+        setInputNode: (input) => setInput(input),
+      },
+    },
+    {
+      id: "output-node",
+      type: "OutputNode",
+      position: { x: 500, y: 0 },
+      data: {
+        response: botResponse,
+      },
+    },
+  ];
 
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
@@ -129,15 +204,28 @@ function Flow() {
 
   return (
     <div className="h-screen w-screen">
-      <div className="absolute top-0 left-0 right-0 bg-white shadow p-4 flex space-x-2 z-10 items-center">
-        <p className="font-bold text-xl">LlamaFlow</p>
-        <Button onClick={() => addNode("DocumentNode")}>Add Document</Button>
-        <Button onClick={() => addNode("RAGNode")}>Add RAG</Button>
-        <Button onClick={() => addNode("UrlDocumentNode")}>
-          Add Url To Document
-        </Button>
-        <Button onClick={() => addNode("InputNode")}>Add Input</Button>
-        <Button onClick={() => addNode("OutputNode")}>Add Output</Button>
+      <div className="absolute top-0 left-0 right-0 bg-white shadow p-4 flex space-x-2 z-10 justify-between items-center">
+        <div className="flex space-x-2 items-center">
+          <p className="font-bold text-xl">LlamaFlow</p>
+          <Button onClick={() => addNode("DocumentNode")} disabled>
+            Add Document
+          </Button>
+          <Button onClick={() => addNode("RAGNode")} disabled>
+            Add RAG
+          </Button>
+          <Button onClick={() => addNode("UrlDocumentNode")} disabled>
+            Add Url To Document
+          </Button>
+          <Button onClick={() => addNode("InputNode")} disabled>
+            Add Input
+          </Button>
+          <Button onClick={() => addNode("OutputNode")} disabled>
+            Add Output
+          </Button>
+        </div>
+        <p className="text-red-500">
+          Adding nodes are disabled to prevent attacks
+        </p>
       </div>
       <ReactFlowProvider>
         <ReactFlow

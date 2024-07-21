@@ -37,7 +37,7 @@ function RAGNode({ data, isConnectable }: { data: any; isConnectable: any }) {
         data.urls == "" ? "https://www.google.com" : data.urls
       );
       const urlResult = await axios.post(
-        "http://127.0.0.1:8000/scrape/",
+        "https://llamaflow-backend.onrender.com/scrape/",
         urlFormData,
         {
           headers: {
@@ -78,11 +78,9 @@ function RAGNode({ data, isConnectable }: { data: any; isConnectable: any }) {
         );
       }
 
-      // formData.append("prompt", root + data.value);
-
       console.log(formData);
       const result = await axios.post(
-        "http://127.0.0.1:8000/query/",
+        "https://llamaflow-backend.onrender.com/query/",
         formData,
         {
           headers: {
